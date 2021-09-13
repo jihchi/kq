@@ -3,5 +3,10 @@ name = "kq"
 version = "0.1.0"
 edition = "2018"
 description = "A jq-like cli tool that can query and transform kdl right in the command line"
+documentation = "https://crates.io/crates/kq"
+homepage = "https://github.com/jihchi/kq"
+repository = "https://github.com/jihchi/kq.git"
+license-file = "LICENSE"
+keywords = ["kdl", "serialization", "config", "document", "query", "transform"]
 
 [dependencies]
