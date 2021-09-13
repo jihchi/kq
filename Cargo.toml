@@ -12,3 +12,4 @@ keywords = ["kdl", "query", "transform", "config", "document"]
 [dependencies]
 kdl = "1.1.0"
 nom = "7.0.0"
+getopts = "0.2"
