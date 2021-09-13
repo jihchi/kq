@@ -1,0 +1,7 @@
+[package]
+name = "kq"
+version = "0.1.0"
+edition = "2018"
+description = "A jq-like cli tool that can query and transform kdl right in the command line"
+
+[dependencies]
