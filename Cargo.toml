@@ -10,3 +10,4 @@ license-file = "LICENSE"
 keywords = ["kdl", "query", "transform", "config", "document"]
 
 [dependencies]
+kdl = "1.1.0"
