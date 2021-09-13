@@ -12,15 +12,18 @@ pub struct Args {
 impl Args {
     pub fn new() -> Result<Args, Fail> {
         let args: Vec<String> = env::args().collect();
+        let program = args[0].clone();
+
         let mut opts = Options::new();
         opts.optflag("h", "help", "print this help menu");
         opts.optflag("v", "version", "print the version");
+
         let matches = opts.parse(&args[1..])?;
 
         Ok(Args {
             opts,
             matches,
-            program: args[0].clone(),
+            program,
         })
     }
 
@@ -34,7 +37,6 @@ impl Args {
 
     pub fn get_free(&self) -> Option<String> {
         let some = !self.matches.free.is_empty();
-
         some.then(|| self.matches.free[0].clone())
     }
 
