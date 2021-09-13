@@ -11,9 +11,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
 
     let nodes = kdl::parse_document(buffer)?;
     let nodes = kq::query_document(query, nodes)?;
-    for node in nodes.iter() {
-        println!("{}", node);
-    }
+    nodes.iter().for_each(|node| println!("{}", node));
 
     Ok(())
 }
