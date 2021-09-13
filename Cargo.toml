@@ -7,6 +7,6 @@ documentation = "https://crates.io/crates/kq"
 homepage = "https://github.com/jihchi/kq"
 repository = "https://github.com/jihchi/kq.git"
 license-file = "LICENSE"
-keywords = ["kdl", "serialization", "config", "document", "query", "transform"]
+keywords = ["kdl", "query", "transform", "config", "document"]
 
 [dependencies]
