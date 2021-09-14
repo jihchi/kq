@@ -1,4 +1,3 @@
-use kq;
 use std::error;
 use std::io::{self, Read};
 
@@ -17,8 +16,8 @@ fn main() -> Result<(), Box<dyn error::Error>> {
         return Ok(());
     }
 
-    let query = match args.get_free() {
-        Some(free) => free,
+    let query = match args.get_query() {
+        Some(query) => query,
         None => {
             args.print_help();
             return Ok(());
