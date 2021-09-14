@@ -26,7 +26,9 @@ impl Args {
             program,
         })
     }
+}
 
+impl Args {
     pub fn help(&self) -> bool {
         self.matches.opt_present("h")
     }
