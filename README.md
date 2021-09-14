@@ -2,7 +2,7 @@
 
 >  🚧 work in progress
 
-A jq-like cli tool that can query and transform kdl right in the command line
+A jq-like cli tool that can query and transform kdl right in the command line.
 
 ## Installation
 
@@ -11,3 +11,9 @@ A jq-like cli tool that can query and transform kdl right in the command line
 ```sh
 cargo install kq
 ```
+
+## References
+
+### KDL Query Language Spec
+
+https://github.com/kdl-org/kdl/blob/main/QUERY-SPEC.md
