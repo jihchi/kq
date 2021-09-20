@@ -6,7 +6,42 @@
 
 >  🚧 work in progress
 
-A jq-like cli tool that can query and transform kdl right in the command line.
+A jq-like cli tool that can [query](https://github.com/kdl-org/kdl/blob/main/QUERY-SPEC.md) and transform [KDL](https://kdl.dev/) document right in the command line.
+
+```console
+$ cat example.kdl
+package {
+    name "foo"
+    version "1.0.0"
+    dependencies platform="windows" {
+        winapi "1.0.0" path="./crates/my-winapi-fork"
+    }
+    dependencies {
+        miette "2.0.0" dev=true
+    }
+}
+
+$ cat example.kdl | kq "package name"
+name "foo"
+
+$ cat example.kdl | kq "dependencies"
+dependencies platform="windows" {
+    winapi "1.0.0" path="./crates/my-winapi-fork"
+}
+dependencies {
+    miette "2.0.0" dev=true
+}
+
+$ cat example.kdl | kq "dependencies[platform]"
+dependencies platform="windows" {
+    winapi "1.0.0" path="./crates/my-winapi-fork"
+}
+
+$ cat example.kdl | kq "dependencies > []"
+winapi "1.0.0" path="./crates/my-winapi-fork"
+miette "2.0.0" dev=true
+
+```
 
 ## Installation
 
@@ -16,8 +51,3 @@ A jq-like cli tool that can query and transform kdl right in the command line.
 cargo install kq
 ```
 
-## References
-
-### KDL Query Language Spec
-
-https://github.com/kdl-org/kdl/blob/main/QUERY-SPEC.md
