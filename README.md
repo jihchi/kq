@@ -20,6 +20,12 @@ You can find prebuilt binaries for Linux, macOS and Windows in the [release page
 $ cargo install kq
 ```
 
+### Container
+
+```console
+$ docker run ghcr.io/jihchi/kq -v
+```
+
 ## Usage
 
 ```console
