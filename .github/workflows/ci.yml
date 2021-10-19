@@ -87,6 +87,7 @@ jobs:
     name: Distribution
     needs: [check, test, lints]
     runs-on: ${{ matrix.os }}
+    if: startsWith(github.ref, 'refs/tags/')
     strategy:
       matrix:
         os: [ubuntu-16.04, macOS-latest, windows-latest]
@@ -116,14 +117,12 @@ jobs:
           override: true
 
       - name: Build | Build
-        if: startsWith(github.ref, 'refs/tags/')
         uses: actions-rs/cargo@v1
         with:
           command: build
           args: --release
 
       - name: Package
-        if: startsWith(github.ref, 'refs/tags/')
         shell: bash
         run: |
           if [[ "${{ matrix.os }}" == "windows-latest" ]]
@@ -139,7 +138,6 @@ jobs:
           cd -
       - name: Publish
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: false
           files: 'kq*'
