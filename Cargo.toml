@@ -1,6 +1,6 @@
 [package]
 name = "kq"
-version = "1.0.0"
+version = "1.0.2"
 edition = "2018"
 description = "A jq-like cli tool that can query and transform kdl right in the command line"
 documentation = "https://crates.io/crates/kq"
