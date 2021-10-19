@@ -92,11 +92,11 @@ jobs:
       matrix:
         os: [ubuntu-18.04, windows-2019, macOS-10.15]
         include:
-          - os: ubuntu-latest
+          - os: ubuntu-18.04
             name: kq-Linux-x86_64.tar.gz
-          - os: macOS-latest
+          - os: macOS-10.15
             name: kq-Darwin-x86_64.tar.gz
-          - os: windows-latest
+          - os: windows-2019
             name: kq-Windows-x86_64.zip
     steps:
       - name: Setup | Checkout code
