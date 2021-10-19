@@ -10,13 +10,28 @@ A jq-like cli tool that can [query](https://github.com/kdl-org/kdl/blob/1.0.0/QU
 
 ## Installation
 
-### Cargo
+### Pre-built binaries
 
-```sh
-cargo install kq
+You can find prebuilt binaries for Linux, macOS and Windows in the [release page](https://github.com/jihchi/kq/releases).
+
+### via Cargo
+
+```console
+$ cargo install kq
 ```
 
 ## Usage
+
+```console
+$ kq -h
+Usage: kq [options] <selector>
+
+Options:
+    -h, --help          print this help menu
+    -v, --version       print the version
+```
+
+## Examples
 
 > Modified from https://github.com/kdl-org/kdl/blob/1.0.0/QUERY-SPEC.md#examples
 
