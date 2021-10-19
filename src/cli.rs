@@ -26,9 +26,7 @@ impl Args {
             program,
         })
     }
-}
 
-impl Args {
     pub fn help(&self) -> bool {
         self.matches.opt_present("h")
     }
@@ -37,9 +35,8 @@ impl Args {
         self.matches.opt_present("v")
     }
 
-    pub fn get_free(&self) -> Option<String> {
-        let some = !self.matches.free.is_empty();
-        some.then(|| self.matches.free[0].clone())
+    pub fn get_query(&self) -> Option<&String> {
+        self.matches.free.get(0)
     }
 
     pub fn print_help(&self) {
