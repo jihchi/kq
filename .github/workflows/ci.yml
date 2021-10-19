@@ -14,7 +14,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-18.04, windows-2019, macOS-10.15]
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
@@ -36,7 +36,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-18.04, windows-2019, macOS-10.15]
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
@@ -58,7 +58,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-18.04, windows-2019, macOS-10.15]
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
@@ -90,9 +90,9 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     strategy:
       matrix:
-        os: [ubuntu-16.04, macOS-latest, windows-latest]
+        os: [ubuntu-18.04, windows-2019, macOS-10.15]
         include:
-          - os: ubuntu-16.04
+          - os: ubuntu-latest
             name: kq-Linux-x86_64.tar.gz
           - os: macOS-latest
             name: kq-Darwin-x86_64.tar.gz
@@ -125,7 +125,7 @@ jobs:
       - name: Package
         shell: bash
         run: |
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]
+          if [[ "${{ matrix.os }}" == "windows-2019" ]]
           then
             strip target/release/kq.exe
             cd target/release
@@ -146,7 +146,7 @@ jobs:
 
   build-and-push-image:
     name: Push Docker image to Github registry (ghcr.io)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     needs: [check, test, lints]
     if: startsWith(github.ref, 'refs/tags/')
     permissions:
