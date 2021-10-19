@@ -14,7 +14,7 @@ A jq-like cli tool that can [query](https://github.com/kdl-org/kdl/blob/1.0.0/QU
 
 You can find prebuilt binaries for Linux, macOS and Windows in the [release page](https://github.com/jihchi/kq/releases).
 
-### via Cargo
+### Cargo
 
 ```console
 $ cargo install kq
