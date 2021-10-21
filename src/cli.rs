@@ -1,7 +1,7 @@
 use getopts::{Fail, Matches, Options};
 use std::env;
 
-const VERSION: Option<&'static str> = option_env!("CARGO_PKG_VERSION");
+const CARGO_PKG_VERSION: &'static str = env!("CARGO_PKG_VERSION");
 
 pub struct Args {
     opts: Options,
@@ -13,8 +13,8 @@ impl Args {
     pub fn new() -> Result<Args, Fail> {
         let args: Vec<String> = env::args().collect();
         let program = args[0].clone();
-
         let mut opts = Options::new();
+
         opts.optflag("h", "help", "print this help menu");
         opts.optflag("v", "version", "print the version");
 
@@ -45,6 +45,6 @@ impl Args {
     }
 
     pub fn print_version(&self) {
-        println!("{}", VERSION.unwrap_or(""));
+        println!("{}", CARGO_PKG_VERSION);
     }
 }
