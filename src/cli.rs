@@ -1,7 +1,7 @@
 use getopts::{Fail, Matches, Options};
 use std::env;
 
-const CARGO_PKG_VERSION: &'static str = env!("CARGO_PKG_VERSION");
+const CARGO_PKG_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 pub struct Args {
     opts: Options,
