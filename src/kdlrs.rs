@@ -1,5 +1,5 @@
 // The code of this file is modified from https://github.com/kdl-org/kdl-rs
-// (mainly from https://github.com/kdl-org/kdl-rs/blob/main/src/parser.rs)
+// (mainly from https://github.com/kdl-org/kdl-rs/blob/v3.0.0/src/parser.rs)
 use kdl::KdlValue;
 use nom::branch::alt;
 use nom::bytes::complete::{tag, take_until, take_until1, take_while_m_n};
