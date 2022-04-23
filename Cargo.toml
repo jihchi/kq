@@ -9,6 +9,11 @@ repository = "https://github.com/jihchi/kq.git"
 license-file = "LICENSE"
 keywords = ["kdl", "query", "transform", "config", "document"]
 
+# Reducing Rust Incremental Compilation Times on macOS by 70% on April 17, 2021
+# https://jakedeichert.com/blog/reducing-rust-incremental-compilation-times-on-macos-by-70-percent
+[profile.dev]
+split-debuginfo = "unpacked"
+
 [dev-dependencies]
 assert_cmd = "2.0.2"
 predicates = "2.0.3"
