@@ -35,7 +35,7 @@ impl Args {
         self.matches.opt_present("v")
     }
 
-    pub fn get_query(&self) -> Option<&String> {
+    pub fn get_selector(&self) -> Option<&String> {
         self.matches.free.get(0)
     }
 

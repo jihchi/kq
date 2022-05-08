@@ -10,7 +10,7 @@ mod parser;
 
 use parser::{Accessor, Combinator, Entity, Matcher, Operator, Sibling};
 
-pub fn query_document(input: &str, document: Vec<KdlNode>) -> Result<Vec<KdlNode>, String> {
+pub fn select(input: &str, document: Vec<KdlNode>) -> Result<Vec<KdlNode>, String> {
     let input = input.trim();
     if input.is_empty() {
         Ok(document)

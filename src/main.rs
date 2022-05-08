@@ -1,5 +1,7 @@
+use kdl::KdlDocument;
 use std::error;
 use std::io::{self, Read};
+use kd::select;
 
 mod cli;
 
@@ -16,8 +18,8 @@ fn main() -> Result<(), Box<dyn error::Error>> {
         return Ok(());
     }
 
-    let query = match args.get_query() {
-        Some(query) => query,
+    let selector = match args.get_query() {
+        Some(selector) => selector,
         None => {
             args.print_help();
             return Ok(());
@@ -28,8 +30,8 @@ fn main() -> Result<(), Box<dyn error::Error>> {
     let mut stdin = io::stdin();
     stdin.read_to_string(&mut buffer)?;
 
-    let nodes = kdl::parse_document(buffer)?;
-    let nodes = kq::query_document(query, nodes)?;
+    let doc = buffer.parse::<KdlDocument>()?;
+    let nodes = select(selector, doc)?;
     nodes.iter().for_each(|node| println!("{}", node));
 
     Ok(())
