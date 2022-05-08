@@ -19,17 +19,17 @@ pub fn select(input: &str, document: KdlDocument) -> Result<KdlDocument, String>
 
     let (_input, selector) = all_consuming(parser::selector)(input)
         .finish()
-        .map_err(|err| err.into())?;
+        .map_err(|err| err.to_string())?;
 
     selector.iter().fold(
         (&Accessor::Top, document.nodes_mut()),
         |(previous, nodes), combinator| match combinator {
             Combinator::Child(accessor, siblings) => {
-                let nodes = query_by_child_combinator(previous.is_top(), accessor, siblings, nodes);
+                query_by_child_combinator(previous.is_top(), accessor, siblings, nodes);
                 (accessor, nodes)
             }
             Combinator::Descendant(accessor, siblings) => {
-                let nodes = query_by_descendant_combinator(accessor, siblings, nodes);
+                query_by_descendant_combinator(accessor, siblings, nodes);
                 (accessor, nodes)
             }
         },
@@ -42,8 +42,8 @@ fn query_by_child_combinator(
     is_previous_sibling_top: bool,
     accessor: &Accessor,
     siblings: &[(Sibling, Accessor)],
-    document: Vec<KdlNode>,
-) -> Vec<KdlNode> {
+    document: &mut Vec<KdlNode>,
+) {
     if siblings.is_empty() {
         match accessor {
             Accessor::AnyElement => {
@@ -91,8 +91,8 @@ fn query_by_child_combinator(
 fn query_by_descendant_combinator(
     accessor: &Accessor,
     siblings: &[(Sibling, Accessor)],
-    document: Vec<KdlNode>,
-) -> Vec<KdlNode> {
+    document: &mut Vec<KdlNode>,
+) {
     if siblings.is_empty() {
         match accessor {
             Accessor::AnyElement => document,
