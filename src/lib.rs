@@ -1,4 +1,4 @@
-use kdl::{KdlNode, KdlValue};
+use kdl::{KdlDocument, KdlNode, KdlValue};
 use nom::combinator::all_consuming;
 use nom::Finish;
 use std::collections::VecDeque;
@@ -10,16 +10,16 @@ mod parser;
 
 use parser::{Accessor, Combinator, Entity, Matcher, Operator, Sibling};
 
-pub fn select(input: &str, document: Vec<KdlNode>) -> Result<Vec<KdlNode>, String> {
+pub fn select(input: &str, document: &KdlDocument) -> Result<KdlDocument, String> {
     let input = input.trim();
     if input.is_empty() {
-        Ok(document)
-    } else {
-        all_consuming(parser::selector)(input)
-            .finish()
-            .map(|(_input, selector)| query_by_selector(selector, document))
-            .map_err(|error| error.to_string())
+        return Ok(document.clone());
     }
+    let (_input, selector) = all_consuming(parser::selector)(input)
+        .finish()
+        .map_err(|err| err.into())?;
+
+    query_by_selector(selector, document)
 }
 
 fn query_by_selector(selector: Vec<Combinator>, document: Vec<KdlNode>) -> Vec<KdlNode> {
