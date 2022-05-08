@@ -21,7 +21,7 @@ pub fn select(input: &str, document: KdlDocument) -> Result<KdlDocument, String>
         .finish()
         .map_err(|err| err.into())?;
 
-    let (_accessor, nodes) = selector.iter().fold(
+    selector.iter().fold(
         (&Accessor::Top, document.nodes_mut()),
         |(previous, nodes), combinator| match combinator {
             Combinator::Child(accessor, siblings) => {
