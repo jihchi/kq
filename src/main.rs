@@ -31,7 +31,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
     stdin.read_to_string(&mut buffer)?;
 
     let document = buffer.parse::<KdlDocument>()?;
-    let nodes = select(selector, &document)?;
+    let nodes = select(selector, document)?;
     nodes.iter().for_each(|node| println!("{}", node));
 
     Ok(())

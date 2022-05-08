@@ -44,6 +44,18 @@ pub(crate) enum Accessor {
     Top,
 }
 
+impl Accessor {
+    pub fn is_top(&self) -> bool {
+        match self {
+            Accessor::AnyElement
+            | Accessor::AnyElementWithTypeTag(_)
+            | Accessor::Closed(_, _)
+            | Accessor::Sole(_) => false,
+            Accessor::Top => true,
+        }
+    }
+}
+
 #[derive(Clone, Debug, PartialEq)]
 pub enum Matcher {
     Direct(Entity),

@@ -10,47 +10,32 @@ mod parser;
 
 use parser::{Accessor, Combinator, Entity, Matcher, Operator, Sibling};
 
-pub fn select(input: &str, document: &KdlDocument) -> Result<KdlDocument, String> {
+pub fn select(input: &str, document: KdlDocument) -> Result<KdlDocument, String> {
     let input = input.trim();
+
     if input.is_empty() {
-        return Ok(document.clone());
+        return Ok(document);
     }
+
     let (_input, selector) = all_consuming(parser::selector)(input)
         .finish()
         .map_err(|err| err.into())?;
 
-    query_by_selector(selector, document)
-}
+    let (_accessor, nodes) = selector.iter().fold(
+        (&Accessor::Top, document.nodes_mut()),
+        |(previous, nodes), combinator| match combinator {
+            Combinator::Child(accessor, siblings) => {
+                let nodes = query_by_child_combinator(previous.is_top(), accessor, siblings, nodes);
+                (accessor, nodes)
+            }
+            Combinator::Descendant(accessor, siblings) => {
+                let nodes = query_by_descendant_combinator(accessor, siblings, nodes);
+                (accessor, nodes)
+            }
+        },
+    );
 
-fn query_by_selector(selector: Vec<Combinator>, document: Vec<KdlNode>) -> Vec<KdlNode> {
-    selector
-        .iter()
-        .fold(
-            (&Accessor::Top, document),
-            |(previous, document), combinator| match combinator {
-                Combinator::Child(accessor, siblings) => {
-                    let is_previous_sibling_top = match previous {
-                        Accessor::AnyElement
-                        | Accessor::AnyElementWithTypeTag(_)
-                        | Accessor::Closed(_, _)
-                        | Accessor::Sole(_) => false,
-                        Accessor::Top => true,
-                    };
-                    let document = query_by_child_combinator(
-                        is_previous_sibling_top,
-                        accessor,
-                        siblings,
-                        document,
-                    );
-                    (accessor, document)
-                }
-                Combinator::Descendant(accessor, siblings) => {
-                    let document = query_by_descendant_combinator(accessor, siblings, document);
-                    (accessor, document)
-                }
-            },
-        )
-        .1
+    Ok(document)
 }
 
 fn query_by_child_combinator(
