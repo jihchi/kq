@@ -20,6 +20,6 @@ predicates = "2.1.1"
 indoc = "1.0.6"
 
 [dependencies]
-kdl = "4.1.1"
+kdl = "4.2.0"
 nom = "7.1.1"
 getopts = "0.2.21"
