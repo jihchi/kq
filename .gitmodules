@@ -1,0 +1,4 @@
+[submodule "kdl-rs"]
+	path = kdl-rs
+	url = https://github.com/kdl-org/kdl-rs.git
+  branch = v4.2.0

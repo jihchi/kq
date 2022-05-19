@@ -2,13 +2,11 @@ use kdl::KdlValue;
 use nom::branch::alt;
 use nom::bytes::complete::tag;
 use nom::character::complete::digit0;
-use nom::combinator::{iterator, map, opt, value};
+use nom::combinator::{map, opt, value};
 use nom::multi::many1;
 use nom::sequence::{delimited, tuple};
 use nom::IResult;
 use std::convert::TryFrom;
-
-use crate::kdlrs;
 
 #[derive(Debug, PartialEq)]
 pub(crate) enum Combinator {
@@ -94,52 +92,7 @@ enum ParsedCombinator {
 }
 
 pub(crate) fn selector(input: &str) -> IResult<&str, Vec<Combinator>> {
-    let (input, head) = accessor(input)?;
-    let mut it = iterator(input, tuple((combinator, accessor)));
-    let tail = it.collect::<Vec<(ParsedCombinator, Accessor)>>();
-    it.finish()?;
-
-    let mut output = vec![Combinator::Descendant(head, vec![])];
-    let mut iter = tail.iter();
-    let mut it = iter.next();
-
-    while it.is_some() {
-        // push sibling combinator onto last hierarchy combinator as a sibling
-        while it.is_some() && is_sibling(it) {
-            let (combinator, accessor) = it.unwrap();
-            let combinator = Sibling::try_from(combinator).unwrap();
-            let sibling = (combinator, accessor.clone());
-            match output.last_mut().unwrap() {
-                Combinator::Child(_head, siblings) | Combinator::Descendant(_head, siblings) => {
-                    siblings.push(sibling)
-                }
-            };
-            it = iter.next();
-        }
-        // push hierarchy combinator onto output
-        if let Some((combinator, accessor)) = it {
-            match combinator {
-                ParsedCombinator::Child => output.push(Combinator::Child(accessor.clone(), vec![])),
-                ParsedCombinator::Descendant => {
-                    output.push(Combinator::Descendant(accessor.clone(), vec![]));
-                }
-                ParsedCombinator::GeneralSibling | ParsedCombinator::AdjacentSibling => (),
-            };
-            it = iter.next();
-        }
-    }
-
-    Ok(("", output))
-}
-
-fn is_sibling(value: Option<&(ParsedCombinator, Accessor)>) -> bool {
-    match value {
-        Some((combinator, _accessor)) => match combinator {
-            ParsedCombinator::Child | ParsedCombinator::Descendant => false,
-            ParsedCombinator::AdjacentSibling | ParsedCombinator::GeneralSibling => true,
-        },
-        None => false,
-    }
+    Ok(("", vec![]))
 }
 
 fn combinator(input: &str) -> IResult<&str, ParsedCombinator> {

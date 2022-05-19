@@ -1,0 +1,24 @@
+[package]
+name = "kq"
+version = "1.0.6"
+edition = "2021"
+description = "A jq-like cli tool that can query and transform kdl right in the command line"
+documentation = "https://crates.io/crates/kq"
+homepage = "https://github.com/jihchi/kq"
+repository = "https://github.com/jihchi/kq.git"
+license-file = "LICENSE"
+keywords = ["kdl", "query", "transform", "config", "document"]
+
+# Reducing Rust Incremental Compilation Times on macOS by 70% on April 17, 2021
+# https://jakedeichert.com/blog/reducing-rust-incremental-compilation-times-on-macos-by-70-percent
+[profile.dev]
+split-debuginfo = "unpacked"
+
+[dev-dependencies]
+assert_cmd = "2.0.4"
+predicates = "2.1.1"
+indoc = "1.0.6"
+
+[dependencies]
+nom = "7.1.1"
+getopts = "0.2.21"
