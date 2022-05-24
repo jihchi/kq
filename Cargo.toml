@@ -1,20 +1,2 @@
-[package]
-name = "kq"
-version = "1.0.6"
-edition = "2021"
-description = "A jq-like cli tool that can query and transform kdl right in the command line"
-documentation = "https://crates.io/crates/kq"
-homepage = "https://github.com/jihchi/kq"
-repository = "https://github.com/jihchi/kq.git"
-license-file = "LICENSE"
-keywords = ["kdl", "query", "transform", "config", "document"]
-
-[dev-dependencies]
-assert_cmd = "2.0.2"
-predicates = "2.0.3"
-indoc = "1.0.3"
-
-[dependencies]
-kdl = "3.0.0"
-nom = "7.0.0"
-getopts = "0.2"
+[workspace]
+members = ["kq"]
