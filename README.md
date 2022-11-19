@@ -4,9 +4,7 @@
 [![Crates.io - download](https://img.shields.io/crates/d/kq)](https://crates.io/crates/kq)
 [![docs.rs](https://img.shields.io/docsrs/kq)](https://docs.rs/kq)
 
-A jq-like cli tool that can [query](https://github.com/kdl-org/kdl/blob/1.0.0/QUERY-SPEC.md) and transform [KDL](https://kdl.dev/) document right in the command line.
-
-> `||` and [Map Operator](https://github.com/kdl-org/kdl/blob/1.0.0/QUERY-SPEC.md#map-operator) are not supported yet.
+A [jq](https://stedolan.github.io/jq/)-like cli tool that can [query](https://github.com/kdl-org/kdl/blob/1.0.0/QUERY-SPEC.md) [KDL](https://kdl.dev/) document right in the command line.
 
 ## Installation
 
