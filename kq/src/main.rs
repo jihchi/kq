@@ -1,10 +1,10 @@
-use std::error;
+use kdl::KdlDocument;
 use std::io::{self, Read};
 
 mod cli;
 
-fn main() -> Result<(), Box<dyn error::Error>> {
-    let args = cli::Args::new()?;
+fn main() -> miette::Result<()> {
+    let args = cli::Args::new().expect("failed to parse arguments");
 
     if args.help() {
         args.print_help();
@@ -26,11 +26,16 @@ fn main() -> Result<(), Box<dyn error::Error>> {
 
     let mut buffer = String::new();
     let mut stdin = io::stdin();
-    stdin.read_to_string(&mut buffer)?;
+    stdin
+        .read_to_string(&mut buffer)
+        .expect("failed to read content from stdin");
 
-    let nodes = kdl::parse_document(buffer)?;
-    let nodes = kq::query_document(query, nodes)?;
-    nodes.iter().for_each(|node| println!("{}", node));
+    let doc = buffer.parse::<KdlDocument>()?;
+    let results = doc.query(query)?;
+
+    if let Some(results) = results {
+        print!("{}", results)
+    }
 
     Ok(())
 }
