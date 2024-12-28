@@ -15,6 +15,6 @@ predicates = "2.0.3"
 indoc = "1.0.3"
 
 [dependencies]
-kdl = "3.0.0"
+kdl = "6.1.0"
 nom = "7.0.0"
 getopts = "0.2"
